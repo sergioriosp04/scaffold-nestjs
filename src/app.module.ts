@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { User } from './users/user.model';
+import { CrudTestModule } from './crud-test/crud-test.module';
 
 @Module({
   imports: [
@@ -18,10 +20,11 @@ import { UsersModule } from './users/users.module';
       username: process.env.DATABASE_USERNAME || 'root',
       password: process.env.DATABASE_PASSWORD || 'root',
       database: process.env.DATABASE_NAME || 'test',
-      models: [],
+      models: [User],
     }),
     AuthModule,
-    UsersModule
+    UsersModule,
+    CrudTestModule
   ],
   controllers: [AppController],
   providers: [AppService],
