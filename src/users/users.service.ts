@@ -10,11 +10,11 @@ export class UsersService {
   ) {}
 
   findAll(): Promise<User[]> {
-    return this.userModel.findAll()
+    return this.userModel.scope('withoutPassword').findAll()
   }
 
   findOne(id: string): Promise<User> {
-    return this.userModel.findOne({
+    return this.userModel.scope('withoutPassword').findOne({
       where: {
         id,
       },
