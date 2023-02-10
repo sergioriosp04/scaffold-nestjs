@@ -1,6 +1,10 @@
 import { Column, Model, Table } from 'sequelize-typescript';
 
-@Table
+@Table({
+  defaultScope: {
+    attributes: { exclude: ['password', 'passRecovery'] },
+  }}
+)
 export class User extends Model {
   @Column
   firstName: string;

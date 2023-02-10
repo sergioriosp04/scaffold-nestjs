@@ -20,4 +20,12 @@ export class UsersService {
       },
     });
   }
+
+  findOneByEmail(email: string): Promise<User> {
+    return this.userModel.findOne({
+      where: {
+        email,
+      },
+    });
+  }
 }
