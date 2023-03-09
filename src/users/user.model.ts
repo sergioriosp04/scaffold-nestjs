@@ -1,4 +1,4 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, Model, Table } from 'sequelize-typescript'
 
 // @Table({
 //   defaultScope: {
@@ -9,28 +9,28 @@ import { Column, Model, Table } from 'sequelize-typescript';
   scopes: {
     withoutPassword: {
       attributes: { exclude: ['password', 'passRecovery'] },
-    }
-  }
+    },
+  },
 })
 export class User extends Model {
   @Column
-  firstName: string;
+  firstName: string
 
   @Column
-  lastName: string;
+  lastName: string
 
   @Column
-  email: string;
+  email: string
 
   @Column
-  document: string;
+  document: string
 
   @Column
-  password: string;
+  password: string
 
   @Column
-  role: string;
+  role: string
 
   @Column
-  passRecovery: string;
+  passRecovery: string
 }
