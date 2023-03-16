@@ -26,7 +26,6 @@ export class UsersController {
     return user
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiResponse({
     status: 201,

@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger'
 
 export class CreateUserDto {
   @IsNotEmpty()
-  @MinLength(5)
+  @MinLength(2)
   @ApiProperty({
     minimum: 5,
   })
@@ -17,7 +17,6 @@ export class CreateUserDto {
   @ApiProperty()
   email: string
 
-  @IsNotEmpty()
   @ApiProperty()
   document: string
 
@@ -25,7 +24,6 @@ export class CreateUserDto {
   @ApiProperty()
   password: string
 
-  @IsNotEmpty()
   @ApiProperty()
   role: string
 }
