@@ -1,16 +1,15 @@
 import { Strategy } from 'passport-local'
 import { PassportStrategy } from '@nestjs/passport'
-import {
-  Injectable,
-  UnauthorizedException,
-  BadRequestException,
-} from '@nestjs/common'
+import { Injectable, BadRequestException } from '@nestjs/common'
 import { AuthService } from './auth.service'
-import * as bcrypt from 'bcrypt'
+import { BcryptService } from 'src/services/bcrypt.service'
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private bcryptService: BcryptService,
+  ) {
     super()
   }
 
@@ -21,7 +20,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       throw new BadRequestException('Password or email are incorrect')
     }
 
-    const isMatch = await bcrypt.compare(password, user.password)
+    const isMatch = await this.bcryptService.comparePasswords(
+      password,
+      user.password,
+    )
 
     if (!isMatch) {
       throw new BadRequestException('Password or email are incorrect')
