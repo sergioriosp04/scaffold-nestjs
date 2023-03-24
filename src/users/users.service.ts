@@ -3,10 +3,12 @@ import { User } from './user.model'
 import { InjectModel } from '@nestjs/sequelize'
 import { CreateUserDto } from './dto/create.user.dto'
 import { BcryptService } from 'src/services/bcrypt.service'
+import { EmailService } from 'src/services/email.service'
 
 @Injectable()
 export class UsersService {
   constructor(
+    private Emailservice: EmailService,
     private bcryptService: BcryptService,
     @InjectModel(User)
     private userModel: typeof User,
@@ -53,7 +55,13 @@ export class UsersService {
       email: createUserDto.email,
       password: passwordHash,
     })
-    console.log(user)
+
+    this.Emailservice.sendEmail(
+      createUserDto.email,
+      'User register successfully',
+      'User register successfully',
+    )
+
     return user
   }
 }
