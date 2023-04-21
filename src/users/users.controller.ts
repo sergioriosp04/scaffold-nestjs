@@ -1,7 +1,7 @@
 import { Controller, NotFoundException } from '@nestjs/common'
 import { Post, Get, Body, Param, UseGuards } from '@nestjs/common/decorators'
 import { UsersService } from './users.service'
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { CreateUserDto } from './dto/create.user.dto'
 import { ApiResponse } from '@nestjs/swagger'
 
