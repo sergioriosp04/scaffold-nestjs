@@ -1,4 +1,9 @@
-import { Controller, NotFoundException } from '@nestjs/common'
+import {
+  Controller,
+  NotFoundException,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common'
 import { Post, Get, Body, Param, UseGuards } from '@nestjs/common/decorators'
 import { UsersService } from './users.service'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
@@ -34,6 +39,12 @@ export class UsersController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto)
+    const user = await this.userService.create(createUserDto)
+
+    if (!user) {
+      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST)
+    }
+
+    return user
   }
 }

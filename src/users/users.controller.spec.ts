@@ -6,6 +6,7 @@ import { UsersService } from './users.service'
 import { getModelToken } from '@nestjs/sequelize'
 import { User } from './user.model'
 import { mockUserModel } from './user.mock'
+import { NotFoundException } from '@nestjs/common'
 
 describe('UsersController', () => {
   let controller: UsersController
@@ -29,5 +30,20 @@ describe('UsersController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined()
+  })
+
+  describe('findOne', () => {
+    it('should return an user', async () => {
+      const response = await controller.findOne('1')
+      expect(response).toHaveProperty('id', 1)
+    })
+    it('should return NotFoundException if user not exists', async () => {
+      mockUserModel.findOne.mockResolvedValue(null)
+      try {
+        await controller.findOne('non-existent-id')
+      } catch (error) {
+        expect(error).toBeInstanceOf(NotFoundException)
+      }
+    })
   })
 })
